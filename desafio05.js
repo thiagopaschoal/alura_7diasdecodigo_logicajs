@@ -1,29 +1,46 @@
-const listaDeCompras = [
-    {
-        categoria: "frutas",
-        items: []
-    },
-    {
-        categoria: "laticinios",
-        items: []
-    }
-]
+const frutas = []
+const laticinios = []
+const doces = []
+const congelados = []
 
-while (true) {
-    const desejaAdicionarItensAoCarrinho = prompt("se você deseja adicionar uma comida na sua lista de compras!! (sim) ou (não)")
-    if (desejaAdicionarItensAoCarrinho === "sim") {
-        const comida = prompt("qual comida vc deseja inserir?")
-        const categoria = prompt("qual categoria essa comida se encaixa?")
-        const existeCategoria = listaDeCompras.filter(lista => lista.categoria === categoria).length > 0;
-        if (existeCategoria) {
-            listaDeCompras.filter(lista => lista.categoria === categoria).map(lista => lista.items.push(comida))
-        } else {
-            const obj = { categoria, items: [comida] }
-            listaDeCompras.push(obj)
-        }
+const menu = () => {
+    const opcao = prompt("se você deseja adicionar ou remover uma comida na sua lista de compras!! (adicionar) ou (sair)")
+    if (opcao !== "adicionar" || opcao !== "sair") {
+        return opcao;
     } else {
-        break
+        alert("opção inválida!!!")
+        menu()
     }
 }
 
-alert(JSON.stringify(listaDeCompras))
+const adicionarItem = () => {
+    const comida = prompt("qual comida vc deseja inserir?")
+    const categoria = prompt("qual categoria essa comida se encaixa? (frutas), (laticinios), (doces) ou (congelados)")
+    switch (categoria) {
+        case "frutas":
+            frutas.push(comida)
+            break
+        case "laticinios":
+            laticinios.push(comida)
+            break
+        case "doces":
+            doces.push(comida)
+            break
+        case "congelados":
+            congelados.push(comida)
+            break
+        default:
+            alert("Essa categoria não foi pré-definida.")
+    }
+}
+
+while (true) {
+    const opcao = menu()
+    if (opcao === "adicionar") {
+        adicionarItem()
+    } else {
+        break;
+    }
+}
+
+alert(`Lista de compras:\n  Frutas: ${frutas}\n  Laticínios: ${laticinios}\n  Doces: ${doces}\n  Congelados: ${congelados}`);
