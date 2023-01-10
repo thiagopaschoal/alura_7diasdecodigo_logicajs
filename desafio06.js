@@ -35,7 +35,9 @@ const adicionarItem = () => {
 }
 
 const removerItem = () => {
+
     const itemASerRemovido = prompt(`Qual deste itens vc deseja remover?\n Lista de compras:\n  Frutas: ${frutas}\n  Laticínios: ${laticinios}\n  Doces: ${doces}\n  Congelados: ${congelados}`);
+
     if (frutas.includes(itemASerRemovido)) {
         frutas = frutas.splice(frutas.indexOf(itemASerRemovido))
     } else if (laticinios.includes(itemASerRemovido)) {
@@ -50,12 +52,21 @@ const removerItem = () => {
 }
 
 while (true) {
+    
     const opcao = menu()
     if (opcao === "adicionar") {
         adicionarItem()
-    } else if (opcao === "remover") {
-        removerItem()
-    } else {
+    }
+
+    if (opcao === "remover") {
+        if (frutas.length == 0 && laticinios.length == 0 && doces.length == 0 && congelados == 0) {
+            alert("deve existir ao menos um elemento dentro da lista de compras.")
+        } else {
+            removerItem()
+        }
+    }
+
+    if (opcao == "sair") {
         break;
     }
 }
